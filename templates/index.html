@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+    <div class="jumbotron text-center">
+        <h3>Hele Hele</h3>
+        <p>Riki riki rambo reste rambo bara bara pişko mingo</p> 
+    </div>
+
+    <p>
+        {% if request.user.is_authenticated %}
+            Naber lan {{ request.user.username }}
+        {% else  %}
+            Yok giriş
+        {% endif %}
+    </p>
+{% endblock body %}

@@ -1,0 +1,47 @@
+<nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'index' %}">Blog</a>
+
+      <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'about' %}">Hakkımda</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'makale:makale' %}">Makaleler</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="http://example.com" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+            <div class="dropdown-menu" aria-labelledby="dropdown01">
+              <a class="dropdown-item" href="#">Action</a>
+              <a class="dropdown-item" href="#">Another action</a>
+              <a class="dropdown-item" href="#">Something else here</a>
+            </div>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          {% if request.user.is_authenticated %}
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'makale:dashboard' %}">
+                Kontrol Paneli
+              </a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'user:logoutUser' %}">
+                Terkol
+              </a>
+            </li>
+          {% else  %}
+            <li class="nav-item active">
+              <a class="nav-link" href="{% url 'user:loginUser' %}">Giriş</a>
+            </li>
+          {% endif %}
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'user:register' %}">Kaydol</a>
+          </li>
+        </ul>
+
+      </div>
+    </nav>

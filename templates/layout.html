@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="tr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Cango</title>
+    <link rel="stylesheet" href="{% static '\css\bootstrap.min.css' %}">
+</head>
+<body>
+    
+    {% include "includes/navbar.html" %}
+
+     <div style="margin-top: 5%;" class="container" ><br><br>
+     {% if messages %}
+            {% for message in messages %}
+
+                {% if message.tags == "info" %}
+                    <div class="alert alert-danger">{{ message }}</div>
+                {% else %}
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                {% endif %}
+
+            {% endfor %}
+    {% endif %}
+        {% block body %}
+        {% endblock  %}
+     </div>
+<script src="{% static '\js\bootstrap.min.js' %}"></script>
+<script src="{% static '\js\jquery-3.2.1.min.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+</body>
+</html> 

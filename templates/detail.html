@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+
+{% block body %}
+<div class="row">
+
+    <!-- Post Content Column -->
+    <div class="col-lg-8">
+
+        <!-- Title -->
+        <h1 class="mt-4">{{makaleler.baslik}}</h1>
+
+        <!-- Author -->
+        <p class="lead">
+            by
+            <a href="#">{{makaleler.yazar}}</a>
+        </p>
+
+        <hr>
+
+        <!-- Date/Time -->
+        <p>{{makaleler.oluşturmaZamanı}}</p>
+
+        <hr>
+
+        <!-- Preview Image -->
+        {% if makaleler.article_image %}
+            <img class="img-fluid rounded" src="{{makaleler.article_image.url}}" alt="">
+        {% endif %}
+        <hr>
+
+        <!-- Post Content -->
+        <p class="lead">
+            {{makaleler.icerik | safe}}
+        </p>
+            
+        <hr>
+        {% if comments %}
+        {% for comment in comments %}
+          
+          <div class="row bootstrap snippets">
+            <div class="col-md-6 col-md-offset-2 col-sm-12">
+                <div class="comment-wrapper">
+                    <div class="panel panel-info">
+                            <ul class="media-list">
+                                <li class="media">
+                                    <a href="#" class="pull-left">
+                                        <img src="https://bootdey.com/img/Content/user_1.jpg" alt="" class="img-circle">
+                                    </a>
+                                    <div class="media-body">
+                                        <span class="text-muted pull-right">
+                                            <small class="text-muted">{{comment.comment_date}}</small>
+                                        </span>
+                                        <strong class="text-success">{{comment.comment_author}}</strong>
+                                        <p>
+                                            {{comment.comment_content}}
+                                        </p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+          </div>
+
+        {% endfor %}
+        {% else %}
+          <div class="alert alert-danger">Yok yorum</div>
+        {% endif %}
+        <form method="post" action="{% url 'makale:comment' makaleler.id  %}">
+            {% csrf_token %}
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input name="comment_content" type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Yaz">
+              <small id="emailHelp" class="form-text text-muted">Bilgileriniz Bizde Saklı Bremınlar ;)</small>
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Password</label>
+              <input name="comment_author" type="text" class="form-control" id="exampleInputPassword1" placeholder="İsim">
+            </div>
+            <div class="form-group form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Check me out</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+
+    </div>
+
+    
+
+</div>
+
+
+
+{% endblock body %}

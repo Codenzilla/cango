@@ -1,0 +1,50 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <h3>Makaleler</h3><hr>
+    <div class="row">
+        <form>
+            {% csrf_token %}
+            <input type="text" name="keyword" class="input-sm" maxlength="64" placeholder="Ne var.." />
+            <button type="submit" class="btn btn-primary">Ara</button>
+        </from>
+    </div>
+
+    {% if articles %}
+        {% for makaleler in articles %}
+            <div class="row">
+                <!-- Post Content Column -->
+                <div class="col-lg-8">
+                    <!-- Title -->
+                    <a href="{% url 'makale:detail' makaleler.id %}" target="blank"> 
+                        <h1 class="mt-4">{{makaleler.baslik}}</h1>
+                    </a>
+                        <!-- Author -->
+                    <p class="lead">
+                        by
+                        <a href="#">{{makaleler.yazar}}</a>
+                    </p><hr>
+                    <!-- Date/Time -->
+                    <p>{{makaleler.oluşturmaZamanı}}</p><hr>
+                    <!-- Preview Image -->
+                    {% if makaleler.article_image %}
+                        <a href="{% url 'makale:detail' makaleler.id %}" target="blank">
+                            <img class="img-fluid rounded" src="{{makaleler.article_image.url}}" alt="">
+                        </a>
+                    {% endif %}<hr>
+                    <!-- Post Content -->
+                    <p class="lead">
+                        {{makaleler.icerik | safe | truncatewords:6 }}
+                        <a href="{% url 'makale:detail' makaleler.id %}" class="btn btn-warning">Oku la devamını</a>
+                    </p>      
+                    <hr>
+                </div>
+            </div>
+        {% endfor %}
+
+    {%else%}
+    <p class="alert alert-danger">"Yok bişi</p>
+    {% endif %}
+    
+{% endblock body %}
